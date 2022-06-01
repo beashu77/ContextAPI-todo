@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import Todos from "./components/Todos";
+import "./App.css";
+import { AuthContext } from "./context/AuthContext";
+import { useContext } from "react";
 
 function App() {
+  const { isAuthorized,login,logout } = useContext(AuthContext);
+
+ 
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button
+        onClick={() => {
+          if (isAuthorized) logout();
+          else login("R", "Z");
+        }}
+      >
+
+
+        {isAuthorized ? "Logout" : "Login"}
+      </button>
+      
+      {isAuthorized && <Todos />}
+      
     </div>
   );
 }
-
 export default App;
